@@ -12,7 +12,7 @@
 	<artifactId>initializer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>initializer</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Security initialized project ready to use</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
