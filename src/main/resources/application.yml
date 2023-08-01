@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/tested
-    username: londor  
-    password: londorpass  
+    url: jdbc:postgresql://localhost:5432/initializer_db
+    username: lordran 
+    password: lordranpass  
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
