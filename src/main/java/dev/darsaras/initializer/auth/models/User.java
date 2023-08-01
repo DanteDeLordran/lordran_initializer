@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -25,9 +27,11 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
+    @Size(min = 2, max = 20)
     private String username;
 
     @Column(nullable = false , unique = true)
+    @Email
     private String email;
 
     @Column(nullable = false)
