@@ -1,9 +1,28 @@
+version: '3'
+
 services:
-  postgres:
-    image: 'postgres:latest'
+  db:
+    container_name: initializer
+    image: postgres:15.1
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - POSTGRES_USER=lordran
+      - POSTGRES_PASSWORD=lordranpass
+      - POSTGRES_DB=initializer_db
     ports:
-      - '5432'
+      - 5432:5432
+
+  pgadmin:
+    depends_on:
+      - db
+    container_name: pgadmin-initializer
+    image: dpage/pgadmin4:6.17
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=lordran@lordran.dev
+      - PGADMIN_DEFAULT_PASSWORD=lordranpass
+    ports:
+      - 80:80
+
+volumes:
+  pgdata:
