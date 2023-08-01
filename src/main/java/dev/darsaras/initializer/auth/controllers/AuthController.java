@@ -11,25 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.darsaras.initializer.auth.models.User;
-import dev.darsaras.initializer.auth.services.LoginService;
+import dev.darsaras.initializer.auth.services.AuthService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-public class LoginController {
+public class AuthController {
     
-    private final LoginService loginService;
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerCustomer( @RequestBody User user ){
-        return loginService.registerUser(user);
+        return authService.registerUser(user);
     }
 
     @GetMapping("/login")
     public ResponseEntity<Optional<User>> getUserDetailsAfterLogin(Authentication authentication){
-        return loginService.getUserDetailsAfterLogin(authentication);
+        return authService.getUserDetailsAfterLogin(authentication);
     }
 
 }
