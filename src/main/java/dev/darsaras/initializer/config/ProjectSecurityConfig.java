@@ -19,6 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import dev.darsaras.initializer.filters.CsrfCookieFilter;
+import dev.darsaras.initializer.filters.JWTGeneratorFilter;
+import dev.darsaras.initializer.filters.JWTValidatorFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
@@ -59,13 +61,13 @@ public class ProjectSecurityConfig {
         .csrf( 
             csrf -> csrf
             .csrfTokenRequestHandler(requestHandler)
-            .ignoringRequestMatchers("/auth/register","/auth/login")
+            .ignoringRequestMatchers("/auth/register")
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         )
         .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
         //.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
-        // .addFilterAfter(new JWTGeneratorFilter(), BasicAuthenticationFilter.class)
-        // .addFilterBefore(new JWTValidatorFIlter(), BasicAuthenticationFilter.class)
+        .addFilterAfter(new JWTGeneratorFilter(), BasicAuthenticationFilter.class)
+        .addFilterBefore(new JWTValidatorFilter(), BasicAuthenticationFilter.class)
         .authorizeHttpRequests(
             requests -> requests
             //.requestMatchers("/account/**").hasRole("USER")
