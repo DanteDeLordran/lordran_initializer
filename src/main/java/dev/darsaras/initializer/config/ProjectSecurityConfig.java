@@ -18,6 +18,7 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import dev.darsaras.initializer.filters.AuthoritiesLoggingAfterFilter;
 import dev.darsaras.initializer.filters.CsrfCookieFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -63,6 +64,7 @@ public class ProjectSecurityConfig {
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         )
         .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+        //.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
         // .addFilterAfter(new JWTGeneratorFilter(), BasicAuthenticationFilter.class)
         // .addFilterBefore(new JWTValidatorFIlter(), BasicAuthenticationFilter.class)
         .authorizeHttpRequests(
