@@ -14,6 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import dev.darsaras.initializer.filters.constants.SecurityConstants;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
@@ -40,10 +42,17 @@ public class JWTValidatorFilter extends OncePerRequestFilter {
                 Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
                         AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            } catch (Exception e) {
-                throw new BadCredentialsException("Invalid Token received!");
+            } catch (ExpiredJwtException e) {
+            // Token is expired
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Token has expired.");
+                return;
+            } catch (JwtException e) {
+            // Token is invalid or cannot be parsed
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Invalid token.");
+                return;
             }
-
         }
         filterChain.doFilter(request, response);
     }

@@ -24,6 +24,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JWTGeneratorFilter extends OncePerRequestFilter{
 
+    //token expiration time 4 hours
+    long expirationTimeMillis = 4 * 60 * 60 * 1000;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
         
@@ -36,7 +39,7 @@ public class JWTGeneratorFilter extends OncePerRequestFilter{
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date((new Date()).getTime() + 30000000))
+                    .setExpiration(new Date(System.currentTimeMillis() + expirationTimeMillis))
                     .signWith(key).compact();
             response.setHeader(SecurityConstants.JWT_HEADER, jwt);
         }
