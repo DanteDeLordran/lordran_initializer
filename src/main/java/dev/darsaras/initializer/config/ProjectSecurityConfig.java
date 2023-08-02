@@ -18,7 +18,6 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import dev.darsaras.initializer.filters.AuthoritiesLoggingAfterFilter;
 import dev.darsaras.initializer.filters.CsrfCookieFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
