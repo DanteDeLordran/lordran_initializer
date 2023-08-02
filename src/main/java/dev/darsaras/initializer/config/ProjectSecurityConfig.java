@@ -70,8 +70,9 @@ public class ProjectSecurityConfig {
         .addFilterBefore(new JWTValidatorFilter(), BasicAuthenticationFilter.class)
         .authorizeHttpRequests(
             requests -> requests
-            //.requestMatchers("/account/**").hasRole("USER")
-            //.requestMatchers("/balance/**").hasAnyRole("USER","ADMIN")
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/mod/**").hasAnyRole("MOD","ADMIN")
+            .requestMatchers("/user/**").hasAnyRole("USER","ADMIN","MOD")
             .requestMatchers("/auth/register").permitAll()
             .anyRequest().authenticated()
         )
