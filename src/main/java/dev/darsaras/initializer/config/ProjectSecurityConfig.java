@@ -72,8 +72,8 @@ public class ProjectSecurityConfig {
             requests -> requests
             //.requestMatchers("/account/**").hasRole("USER")
             //.requestMatchers("/balance/**").hasAnyRole("USER","ADMIN")
-            .requestMatchers("/auth/login").authenticated()
             .requestMatchers("/auth/register").permitAll()
+            .anyRequest().authenticated()
         )
         .formLogin(Customizer.withDefaults())
         .httpBasic(Customizer.withDefaults());
