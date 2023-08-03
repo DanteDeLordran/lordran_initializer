@@ -73,7 +73,7 @@ public class ProjectSecurityConfig {
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/mod/**").hasAnyRole("MOD","ADMIN")
             .requestMatchers("/user/**").hasAnyRole("USER","ADMIN","MOD")
-            .requestMatchers("/auth/register").permitAll()
+            .requestMatchers("/auth/register/**").permitAll()
             .anyRequest().authenticated()
         )
         .formLogin(Customizer.withDefaults())
