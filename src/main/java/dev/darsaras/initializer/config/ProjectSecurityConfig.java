@@ -61,7 +61,7 @@ public class ProjectSecurityConfig {
         .csrf( 
             csrf -> csrf
             .csrfTokenRequestHandler(requestHandler)
-            .ignoringRequestMatchers("/auth/register")
+            .ignoringRequestMatchers("/auth/register","/roles/seed")
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         )
         .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
@@ -73,7 +73,7 @@ public class ProjectSecurityConfig {
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/mod/**").hasAnyRole("MOD","ADMIN")
             .requestMatchers("/user/**").hasAnyRole("USER","ADMIN","MOD")
-            .requestMatchers("/auth/register").permitAll()
+            .requestMatchers("/auth/register","/roles/seed").permitAll()
             .anyRequest().authenticated()
         )
         .formLogin(Customizer.withDefaults())
